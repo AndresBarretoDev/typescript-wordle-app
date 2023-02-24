@@ -18,7 +18,7 @@ export const Key = ({
   isRevealing,
   status,
 }: Props) => {
-  const solution = 'HOLAS'
+  const solution = 'jugar'
   const keyDelayMs = REVEAL_TIME_MS * solution.length
 
   const styles = {

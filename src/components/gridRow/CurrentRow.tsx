@@ -1,5 +1,5 @@
 import { Cell } from './Cell'
-const solution = 'HOLAS'
+const solution = 'jugar'
 
 type Props = {
   guess: string

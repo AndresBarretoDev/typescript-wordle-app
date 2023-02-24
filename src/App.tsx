@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { Grid } from './components/gridRow/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
 import { Toolbar } from './components/toolbar/Toolbar'
-import { MAX_CHALLENGES } from './constants/settings'
-const solution = 'HOLAS'
+import { MAX_CHALLENGES, REVEAL_TIME_MS } from './constants/settings'
+import { isExistingWord } from './utils/utilities'
+const solution = 'jugar'
 
 function App() {
   const [isRevealing, setIsRevealing] = useState(false)
@@ -45,6 +46,21 @@ function App() {
       return
     }
 
+    if (!isExistingWord(currentGuess)) {
+      console.log('not existing word')
+      setCurrentClass('shake-horizontal')
+      setTimeout(() => {
+        clearCurrentRowClass()
+      }, 1000)
+      return
+    }
+
+    setIsRevealing(true)
+    // turn this back off after all
+    // chars have been revealed
+    setTimeout(() => {
+      // setIsRevealing(false)
+    }, REVEAL_TIME_MS * solution.length)
     if (currentGuess.length === solution.length) {
       console.log('kjsdhksjdhkj')
 

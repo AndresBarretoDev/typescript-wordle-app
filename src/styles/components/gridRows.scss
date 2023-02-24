@@ -1,0 +1,15 @@
+.cell {
+  @apply w-16 h-16 flex items-center justify-center m-1 text-4xl font-bold rounded text-gray-darker bg-gray-04 dark:bg-gray-02 uppercase;
+  &.absent {
+    @apply bg-slate-400 dark:bg-slate-700 text-white border-slate-400 dark:border-slate-700;
+    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  &.present {
+    @apply bg-cyan-500 text-white border-cyan-500;
+    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  &.correct {
+    @apply bg-green-500 text-white border-green-500;
+    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+}

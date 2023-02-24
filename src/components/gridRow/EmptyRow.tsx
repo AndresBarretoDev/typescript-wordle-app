@@ -1,7 +1,7 @@
 import { Cell } from './Cell'
 
 export const EmptyRow = () => {
-  const solution = 'HOLAS'
+  const solution = 'jugar'
   const emptyCells = Array.from(Array(solution.length))
 
   return (
