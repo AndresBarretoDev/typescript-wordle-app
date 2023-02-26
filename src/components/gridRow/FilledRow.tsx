@@ -8,7 +8,6 @@ type Props = {
 }
 export const FilledRow = ({ solution, guess, isRevealed }: Props) => {
   const statusList = getGuessStatuses(solution, guess.toLowerCase())
-  console.log('statusList', statusList)
 
   const splitGuess = guess.split('')
   return (

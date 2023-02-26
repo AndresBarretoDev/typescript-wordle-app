@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { DELETE_TEXT, ENTER_TEXT } from '../../constants/settings'
+import { getStatuses } from '../../utils/utilities'
 import { Key } from './Key'
 
 type Props = {
@@ -19,6 +20,12 @@ export const Keyboard = ({
   guesses,
   isRevealing,
 }: Props) => {
+  const transformLowercase = (guesses: string[]) => {
+    const lowercaseGuesses = guesses.map((guess) => guess.toLowerCase())
+    return lowercaseGuesses
+  }
+  const charStatuses = getStatuses(solution, guesses)
+  console.log('charStatuses', charStatuses)
   const onClick = (value: string) => {
     if (value === 'ENTER') {
       onEnter()
@@ -50,25 +57,25 @@ export const Keyboard = ({
   }, [onChar, onDelete, onEnter])
 
   return (
-    <div className="rounded-[15px] pl-5 pr-9 py-8 bg-gray-05 flex flex-col gap-[9px]">
+    <div className="rounded-[15px] pl-5 pr-9 py-8 bg-gray-05 dark:bg-gray-03 flex flex-col gap-[9px]">
       <div className="flex justify-center gap-[9px]">
-        {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((key) => (
+        {['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map((key) => (
           <Key
             value={key}
             key={key}
             onClick={onClick}
-            status={'correct'}
+            status={charStatuses[key]}
             isRevealing={isRevealing}
           />
         ))}
       </div>
       <div className="flex justify-end gap-[9px]">
-        {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ'].map((key) => (
+        {['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ'].map((key) => (
           <Key
             value={key}
             key={key}
             onClick={onClick}
-            status={'correct'}
+            status={charStatuses[key]}
             isRevealing={isRevealing}
           />
         ))}
@@ -77,12 +84,12 @@ export const Keyboard = ({
         <Key width={71.78} value="ENTER" onClick={onClick}>
           {ENTER_TEXT}
         </Key>
-        {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map((key) => (
+        {['z', 'x', 'c', 'v', 'b', 'n', 'm'].map((key) => (
           <Key
             value={key}
             key={key}
             onClick={onClick}
-            status={'correct'}
+            status={charStatuses[key]}
             isRevealing={isRevealing}
           />
         ))}

@@ -18,12 +18,9 @@ export const Cell = ({
   const isFilled = value && !isCompleted
   const shouldReveal = isRevealed && isCompleted
   const animationDelay = `${position * 450}ms`
-  // console.log('isFilled', isFilled)
-  // console.log('shouldReveal', shouldReveal)
-  // console.log('status', status)
 
   return (
-    <div className={`cell ${status}`} style={{ animationDelay }}>
+    <div className={`cell ${status ?? ''}`} style={{ animationDelay }}>
       <div className="letter-container" style={{ animationDelay }}>
         {value}
       </div>

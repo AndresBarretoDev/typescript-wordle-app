@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       colors: {
         'gray-light': '#F3F3F3',
+        'gray-light-d': '#D3D6DA',
         'gray-lighter': '#DADCE0',
         'gray-lightest': '#F3F3F3E3',
         'gray-dark': '#939B9F',
@@ -17,7 +18,9 @@ module.exports = {
         'gray-03': '#DADCE008',
         'gray-04': '#939B9F4D',
         'gray-05': '#DADCE04D',
+        'gray-06': '#f3f3f3cc',
         black: '#000000',
+        'black-2': '#262B3C',
         'success-light': '#66A060',
         'success-dark': '#6AAA64',
         'blue-dark': '#565F7E',

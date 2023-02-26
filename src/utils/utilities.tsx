@@ -8,23 +8,46 @@ export const isExistingWord = (word: string) => {
   return WORDS_LIST.includes(word.toLowerCase())
 }
 
+export const splitWords = (word: string) => word.split('')
+export const splitWordsLength = (word: string) => word.split('').length
+
+export const getStatuses = (
+  solution: string,
+  guesses: string[],
+): { [key: string]: CharStatus } => {
+  const statsObj: { [key: string]: CharStatus } = {}
+  const splitSolution = splitWords(solution)
+
+  guesses.forEach((word) => {
+    splitWords(word.toLowerCase()).forEach((letter, i) => {
+      if (!splitSolution.includes(letter)) {
+        return (statsObj[letter] = 'absent')
+      }
+
+      if (letter === splitSolution[i]) {
+        return (statsObj[letter] = 'correct')
+      }
+
+      if (statsObj[letter] !== 'correct') {
+        return (statsObj[letter] = 'present')
+      }
+    })
+  })
+
+  return statsObj
+}
+
 export const getGuessStatuses = (
   solution: string,
   guess: string,
 ): CharStatus[] => {
-  const splitSolution = solution.split('')
+  const splitSolution = splitWords(solution)
 
-  const splitGuess = guess.split('')
-
+  const splitGuess = splitWords(guess)
   const solutionCharsTaken = splitSolution.map((_) => false)
-
   const statuses: CharStatus[] = Array.from(Array(guess.length))
-  console.log('char statuses', statuses)
 
-  // handle all correct cases first
   splitGuess.forEach((letter, i) => {
-    console.log('letter', letter, ' === splitSolution[i]', splitSolution[i])
-
     if (letter === splitSolution[i]) {
       statuses[i] = 'correct'
       solutionCharsTaken[i] = true
@@ -39,9 +62,7 @@ export const getGuessStatuses = (
       statuses[i] = 'absent'
       return
     }
-    console.log('solutionCharsTaken[index]', solutionCharsTaken)
 
-    // now we are left with "present"s
     const indexOfPresentChar = splitSolution.findIndex(
       (x, index) => x === letter && !solutionCharsTaken[index],
     )
@@ -55,7 +76,6 @@ export const getGuessStatuses = (
       return
     }
   })
-  console.log('statuses end', statuses)
 
   return statuses
 }
