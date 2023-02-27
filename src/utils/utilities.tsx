@@ -2,9 +2,6 @@ import { WORDS_LIST } from '../constants/wordsList'
 export type CharStatus = 'absent' | 'present' | 'correct'
 
 export const isExistingWord = (word: string) => {
-  console.log('isExistingWord', word.toLowerCase())
-  console.log('WORDS_LIST', WORDS_LIST.includes(word.toLowerCase()))
-
   return WORDS_LIST.includes(word.toLowerCase())
 }
 
@@ -79,3 +76,48 @@ export const getGuessStatuses = (
 
   return statuses
 }
+
+// get the current date
+
+export const currentDatePlusFiveMinutes = () => {
+  const currentDate = new Date()
+  currentDate.setMinutes(currentDate.getMinutes() + 5)
+  return currentDate
+}
+
+// Array to store the selected words
+let wordsSelected: string[] = []
+
+// funtion to select a random word from the words list
+export const selectRandomWord = () => {
+  let wordsAvailable = WORDS_LIST.filter(function (word) {
+    return !wordsSelected.includes(word)
+  })
+
+  if (wordsAvailable.length === 0) {
+    // if all words have been selected, start again from the first list
+    wordsSelected = []
+    wordsAvailable = WORDS_LIST
+  }
+
+  const index = Math.floor(Math.random() * wordsAvailable.length)
+  const selectedWord = wordsAvailable[index]
+  wordsSelected.push(selectedWord)
+
+  return selectedWord
+}
+// if not start time, set the start time in localStorage
+
+export const getWordSolution = () => {
+  console.log('getWordSolution')
+
+  const gameSolution = localStorage.getItem('gameSolution') || false
+  if (!gameSolution) {
+    const selectedWord: string = selectRandomWord()
+    localStorage.gameSolution = selectedWord
+    return { solution: selectedWord }
+  }
+  return { solution: gameSolution }
+}
+
+export const { solution } = getWordSolution()

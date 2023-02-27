@@ -18,8 +18,6 @@ export const Key = ({
   isRevealing,
   status,
 }: Props) => {
-  const solution = 'jugar'
-
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     onClick(value)
     event.currentTarget.blur()
@@ -31,6 +29,7 @@ export const Key = ({
         status ? ' ' + status : ''
       }`}
       onClick={handleClick}
+      style={{ width }}
     >
       {children || value}
     </button>

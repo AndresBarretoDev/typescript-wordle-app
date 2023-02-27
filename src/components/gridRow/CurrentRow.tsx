@@ -1,5 +1,7 @@
+import { solution } from '../../utils/utilities'
+
 import { Cell } from './Cell'
-const solution = 'jugar'
+// const solution = 'jugar'
 
 type Props = {
   guess: string
@@ -7,8 +9,6 @@ type Props = {
 }
 
 export const CurrentRow = ({ guess, className }: Props) => {
-  console.log('guess', guess)
-
   const splitGuess = guess.split('')
   const emptyCells = Array.from(Array(solution.length - splitGuess.length))
 

@@ -1,31 +1,22 @@
 .cell {
   @apply w-16 h-16 flex items-center justify-center m-1 text-4xl font-bold rounded text-gray-darker bg-gray-04 dark:bg-gray-dark uppercase;
-  &.absent {
-    @apply bg-gray-dark dark:bg-gray-02 text-white border-slate-400 dark:border-slate-700;
-    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
-  &.present {
-    @apply bg-warning text-white border-warning;
-    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
-  &.correct {
-    @apply bg-green-500 text-white border-green-500;
-    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  &.instructions {
+    @apply text-black dark:text-white bg-white dark:bg-transparent border border-black dark:border-gray-dark;
   }
 }
-
 .keypad {
   @apply flex items-center justify-center rounded text-xs font-bold cursor-pointer select-none dark:text-white bg-gray-light-d dark:bg-gray-darker-01 hover:bg-slate-300 active:bg-gray-04;
-  &.absent {
-    @apply bg-gray-dark dark:bg-gray-02 text-white border-slate-400 dark:border-slate-700;
-    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
-  &.present {
-    @apply bg-warning text-white border-warning;
-    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
-  &.correct {
-    @apply bg-green-500 text-white border-green-500;
-    animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
+}
+
+.absent {
+  @apply bg-gray-dark dark:bg-gray-02 text-white;
+  animation: flip-in-hor-bottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.present {
+  @apply bg-warning text-white;
+  animation: flip-in-hor-bottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.correct {
+  @apply bg-success-dark dark:bg-success-light text-white;
+  animation: flip-in-hor-bottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }

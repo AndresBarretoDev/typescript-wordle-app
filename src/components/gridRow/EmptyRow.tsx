@@ -1,7 +1,10 @@
+import { solution } from '../../utils/utilities'
+
 import { Cell } from './Cell'
 
 export const EmptyRow = () => {
-  const solution = 'jugar'
+  // const solution = 'jugar'
+
   const emptyCells = Array.from(Array(solution.length))
 
   return (

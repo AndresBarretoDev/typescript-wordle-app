@@ -7,19 +7,33 @@ type Props = {
   children?: React.ReactNode
   isDark?: boolean
   setIsDark?: () => void
+  setStadisticsModal?: () => void
+  setInstructionsModal?: () => void
 }
 
-export const Toolbar = ({ children, isDark, setIsDark }: Props) => {
+export const Toolbar = ({
+  children,
+  isDark,
+  setIsDark,
+  setStadisticsModal,
+  setInstructionsModal,
+}: Props) => {
   return (
     <nav className="rounded-[15px] bg-gray-light dark:bg-gray-03 flex items-center justify-between px-6 py-4">
-      <div className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-01 dark:bg-gray-lighter dark:text-black-2 text-white">
+      <button
+        onClick={setInstructionsModal}
+        className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-01 dark:bg-gray-lighter dark:text-black-2 text-white"
+      >
         ?
-      </div>
+      </button>
       <p className="text-gray-darker dark:text-gray-lighter tracking-[0.075em] font-semibold uppercase text-[40px] leading-[47px]">
         wordle
       </p>
       <div className="flex items-center gap-x-3">
-        <div className="py-2 rounded-sm h-7 flex items-center justify-center bg-gray-01 dark:bg-gray-lighter hover:bg-gray-darker-89 text-white dark:text-black-2 cursor-pointer">
+        <div
+          onClick={setStadisticsModal}
+          className="py-2 rounded-sm h-7 flex items-center justify-center bg-gray-01 dark:bg-gray-lighter hover:bg-gray-darker-89 text-white dark:text-black-2 cursor-pointer"
+        >
           <svg
             width="40"
             height="100"
@@ -77,13 +91,8 @@ export const Toolbar = ({ children, isDark, setIsDark }: Props) => {
             <img
               src={!isDark ? switchSun : switchMoon}
               className="w-full h-full object-cover"
-              alt="sun"
+              alt="rouded switch"
             />
-            {/* <img
-              src={switchMoon}
-              className="w-full h-full object-cover"
-              alt="moon"
-            /> */}
           </div>
         </div>
         {/* toggle button */}
