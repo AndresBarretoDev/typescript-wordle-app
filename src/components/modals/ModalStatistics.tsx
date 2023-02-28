@@ -8,6 +8,8 @@ import { BaseModal } from './BaseModal'
 type Props = {
   closeModal: () => void
   isOpen: boolean
+  gameWon: boolean
+  gameLost: boolean
   statistics: GameStats
 }
 type RenderProps = {
@@ -15,15 +17,18 @@ type RenderProps = {
   minutes: number
   seconds: number
 }
-export const ModalStatistics = ({ closeModal, isOpen, statistics }: Props) => {
+export const ModalStatistics = ({ closeModal, isOpen, statistics, gameWon, gameLost }: Props) => {
+
   const [countDown, setcountDown] = useState<number>(0)
   const [getSolution, setGetSolution] = useState<string>(solution)
 
   const renderTime = ({ minutes, seconds, completed }: RenderProps) => {
     if (completed) {
+
       localStorage.removeItem('gameSolution')
       localStorage.removeItem('fiveMinutes')
       getWordSolution()
+      window.location.reload()
 
       return <h1>Completado</h1>
     } else {
@@ -37,13 +42,17 @@ export const ModalStatistics = ({ closeModal, isOpen, statistics }: Props) => {
   }
   useEffect(() => {
     console.log('useEffect get:', getSolution)
-  }, [getSolution])
+  }, [isOpen])
+
+
   useEffect(() => {
+
     const fiveMinutes = localStorage.getItem('fiveMinutes')
+
     if (fiveMinutes) {
       setcountDown(parseInt(fiveMinutes))
     }
-  }, [isOpen])
+  }, [gameWon])
 
   return (
     <BaseModal title="Estadísticas" isOpen={isOpen} closeModal={closeModal}>
@@ -60,8 +69,14 @@ export const ModalStatistics = ({ closeModal, isOpen, statistics }: Props) => {
         </div>
         {/* todo: condition to show the next word if game won or lost */}
         <div className="flex flex-col flex-wrap justify-center pt-8 items-center">
-          <p className="uppercase mb-2">Siguiente palabra</p>
-          <Countdown date={countDown} renderer={renderTime} />
+
+          {gameLost || gameWon && (
+            <>
+              <p className="uppercase mb-2">Siguiente palabra</p>
+              <Countdown date={countDown} renderer={renderTime} />
+            </>
+          )}
+
           <button
             onClick={closeModal}
             className="bg-success-dark hover:bg-success-light transition duration-300 text-white font-bold py-2 px-10 mt-4 mx-auto flex  rounded-md text-lg border-none outline-none focus:outline-none"

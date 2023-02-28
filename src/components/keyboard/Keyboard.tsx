@@ -56,8 +56,8 @@ export const Keyboard = ({
   }, [onChar, onDelete, onEnter])
 
   return (
-    <div className="rounded-[15px] pl-5 pr-9 py-8 bg-gray-05 dark:bg-gray-03 flex flex-col gap-[9px]">
-      <div className="flex justify-center gap-[9px]">
+    <div className="rounded-[15px] pl-4 pr-4 py-4 md:pl-5 md:pr-9 md:py-8 bg-gray-05 dark:bg-gray-03 flex flex-col gap-y-1 md:gap-y-[9px]">
+      <div className="flex justify-center gap-1 md:gap-[9px]">
         {['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map((key) => (
           <Key
             value={key}
@@ -68,7 +68,7 @@ export const Keyboard = ({
           />
         ))}
       </div>
-      <div className="flex justify-end gap-[9px]">
+      <div className="flex justify-end gap-1 md:gap-[9px]">
         {['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ'].map((key) => (
           <Key
             value={key}
@@ -79,8 +79,8 @@ export const Keyboard = ({
           />
         ))}
       </div>
-      <div className="flex justify-center gap-[9px]">
-        <Key width={71.78} value="ENTER" onClick={onClick}>
+      <div className="flex justify-center gap-1 md:gap-[9px] w-">
+        <Key width={55} value="ENTER" onClick={onClick}>
           {ENTER_TEXT}
         </Key>
         {['z', 'x', 'c', 'v', 'b', 'n', 'm'].map((key) => (
@@ -92,7 +92,7 @@ export const Keyboard = ({
             isRevealing={isRevealing}
           />
         ))}
-        <Key width={71.78} value="DELETE" onClick={onClick}>
+        <Key width={55} value="DELETE" onClick={onClick}>
           <svg
             width="23"
             height="17"

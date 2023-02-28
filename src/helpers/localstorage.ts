@@ -43,10 +43,7 @@ export const addStatisticsInCompletedGame = (
   counter: number,
 ) => {
   const gameStatistics = gameStats || defaultStats
-  console.log('add statistics', counter)
-  console.log('gameStatistics', gameStatistics)
   const stats = { ...gameStatistics }
-  console.log('stats', stats)
 
   stats.totalGames += 1
   if (counter >= MAX_CHALLENGES) {

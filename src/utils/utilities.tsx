@@ -109,7 +109,6 @@ export const selectRandomWord = () => {
 // if not start time, set the start time in localStorage
 
 export const getWordSolution = () => {
-  console.log('getWordSolution')
 
   const gameSolution = localStorage.getItem('gameSolution') || false
   if (!gameSolution) {

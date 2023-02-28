@@ -23,7 +23,7 @@ export const ModalInstructions = ({ closeModal, isOpen }: Props) => {
 
       {/* example grid */}
 
-      <div className="mt-2 flex justify-center">
+      <div className="mt-2 flex justify-center instructions">
         <Cell isRevealed={true} isCompleted={true} value="G" status="correct" />
         <Cell value="A" />
         <Cell value="T" />
@@ -34,7 +34,7 @@ export const ModalInstructions = ({ closeModal, isOpen }: Props) => {
         La letra <strong>G</strong> está en la palabra y en la posición
         correcta.
       </p>
-      <div className="mt-2 flex justify-center">
+      <div className="mt-2 flex justify-center instructions">
         <Cell value="V" />
         <Cell value="o" />
         <Cell isRevealed={true} isCompleted={true} status="present" value="c" />
@@ -45,7 +45,7 @@ export const ModalInstructions = ({ closeModal, isOpen }: Props) => {
         La letra <strong>C</strong> está en la palabra pero en la posición
         incorrecta.
       </p>
-      <div className="mt-2 flex justify-center">
+      <div className="mt-2 flex justify-center instructions">
         <Cell value="c" />
         <Cell value="a" />
         <Cell value="n" />

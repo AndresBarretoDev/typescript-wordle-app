@@ -21,14 +21,12 @@ import {
 // const solution = 'jugar'
 
 function App() {
-  console.log('RELOAD APP?')
 
   const [gameWon, setGameWon] = useState(false)
   const [gameLost, setGameLost] = useState(false)
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)')
     .matches
   const getDataFromStorage = () => {
-    console.log('data from storage')
 
     const response = getGameStatusFromLocalStorage()
     if (response?.solution !== solution) return []
@@ -52,8 +50,8 @@ function App() {
     localStorage.getItem('theme')
       ? localStorage.getItem('theme') === 'dark'
       : prefersDarkMode
-      ? true
-      : false,
+        ? true
+        : false,
   )
   const handleDarkMode = (isDark: boolean) => {
     setIsDarkMode(isDark)
@@ -61,6 +59,12 @@ function App() {
   }
   const [guesses, setGuesses] = useState<string[]>(() => getDataFromStorage())
   const [statistics, setStatistics] = useState(() => loadStatistics())
+
+  const handleStatisticsModal = () => {
+    setTimeout(() => {
+      setStatisticsModalOpen(true)
+    }, 350 * solution.length + 1)
+  }
 
   useEffect(() => {
     // show instructions modal only when the user has not seen it before
@@ -73,6 +77,7 @@ function App() {
 
   useEffect(() => {
     saveGameInLocalstorage({ guesses, solution })
+
   }, [guesses])
 
   const clearCurrentRowClass = () => {
@@ -89,12 +94,11 @@ function App() {
 
   useEffect(() => {
     if (gameWon) {
-      setStatisticsModalOpen(true)
+      handleStatisticsModal()
     }
 
     if (gameLost) {
-      console.log('effect game lost')
-      setStatisticsModalOpen(true)
+      handleStatisticsModal()
     }
   }, [gameWon, gameLost])
 
@@ -113,7 +117,6 @@ function App() {
     setCurrentGuess(currentGuess.slice(0, -1))
   }
   const onEnter = () => {
-    console.log('onEnter')
 
     if (gameWon || gameLost) return
 
@@ -135,11 +138,10 @@ function App() {
 
     setIsRevealing(true)
     setTimeout(() => {
-      // setIsRevealing(false)
+      setIsRevealing(false)
     }, REVEAL_TIME_MS * solution.length)
 
     const winningWord = currentGuess === solution
-    console.log('winning word', currentGuess)
 
     if (
       currentGuess.length === solution.length &&
@@ -149,17 +151,13 @@ function App() {
       setGuesses([...guesses, currentGuess])
       setCurrentGuess('')
       if (winningWord) {
-        console.log('winning word!!')
         setStatistics(addStatisticsInCompletedGame(statistics, guesses.length))
-        console.log('stats', statistics)
 
         setGameWon(true)
-        const fiveMinutes: any = currentDatePlusFiveMinutes()
+        const fiveMinutes: Date = currentDatePlusFiveMinutes()
         localStorage.setItem('fiveMinutes', JSON.stringify(+fiveMinutes))
 
-        setTimeout(() => {
-          setStatisticsModalOpen(true)
-        }, 350 * solution.length + 1)
+        handleStatisticsModal()
       }
 
       if (guesses.length === MAX_CHALLENGES - 1) {
@@ -167,9 +165,7 @@ function App() {
           addStatisticsInCompletedGame(statistics, guesses.length + 1),
         )
         setGameLost(true)
-        setTimeout(() => {
-          setStatisticsModalOpen(true)
-        }, 2000)
+        handleStatisticsModal()
       }
     }
   }
@@ -184,6 +180,8 @@ function App() {
         isOpen={statisticsModalOpen}
         closeModal={() => setStatisticsModalOpen(false)}
         statistics={statistics}
+        gameWon={gameWon}
+        gameLost={gameLost}
       />
 
       <div className="mx-auto flex w-full grow flex-col px-1 pt-2 pb-8 sm:px-6 max-w-[638px] lg:px-0 short:pb-2 short:pt-2">

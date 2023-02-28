@@ -22,11 +22,11 @@ export const Toolbar = ({
     <nav className="rounded-[15px] bg-gray-light dark:bg-gray-03 flex items-center justify-between px-6 py-4">
       <button
         onClick={setInstructionsModal}
-        className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-01 dark:bg-gray-lighter dark:text-black-2 text-white"
+        className="min-w-[28px] w-7 h-7 flex items-center justify-center rounded-full bg-gray-01 dark:bg-gray-lighter dark:text-black-2 text-white"
       >
         ?
       </button>
-      <p className="text-gray-darker dark:text-gray-lighter tracking-[0.075em] font-semibold uppercase text-[40px] leading-[47px]">
+      <p className="text-gray-darker dark:text-gray-lighter tracking-[0.075em] font-semibold uppercase text-xl xl:text-2xl 2xl:text-3xl leading-[47px]">
         wordle
       </p>
       <div className="flex items-center gap-x-3">
@@ -84,9 +84,8 @@ export const Toolbar = ({
           }}
         >
           <div
-            className={`absolute top-px left-0.5 w-8 h-8 rounded-full transform duration-300 ease-in-out ${
-              !isDark && 'translate-x-6'
-            }`}
+            className={`absolute top-px left-0.5 w-8 h-8 rounded-full transform duration-300 ease-in-out ${!isDark && 'translate-x-6'
+              }`}
           >
             <img
               src={!isDark ? switchSun : switchMoon}
