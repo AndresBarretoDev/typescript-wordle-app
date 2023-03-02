@@ -25,8 +25,9 @@ export const Key = ({
 
   return (
     <button
-      className={`keypad uppercase w-7 h-7 md:w-11 md:h-[51px] ${value}${status ? ' ' + status : ''
-        }`}
+      className={`keypad uppercase w-7 h-8 md:w-11 md:h-[44px] ${value}${
+        status ? ' ' + status : ''
+      }`}
       onClick={handleClick}
       style={{ width: `${width}px` }}
     >

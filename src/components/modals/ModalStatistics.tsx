@@ -17,14 +17,18 @@ type RenderProps = {
   minutes: number
   seconds: number
 }
-export const ModalStatistics = ({ closeModal, isOpen, statistics, gameWon, gameLost }: Props) => {
-
+export const ModalStatistics = ({
+  closeModal,
+  isOpen,
+  statistics,
+  gameWon,
+  gameLost,
+}: Props) => {
   const [countDown, setcountDown] = useState<number>(0)
   const [getSolution, setGetSolution] = useState<string>(solution)
 
   const renderTime = ({ minutes, seconds, completed }: RenderProps) => {
     if (completed) {
-
       localStorage.removeItem('gameSolution')
       localStorage.removeItem('fiveMinutes')
       getWordSolution()
@@ -40,19 +44,21 @@ export const ModalStatistics = ({ closeModal, isOpen, statistics, gameWon, gameL
       )
     }
   }
-  useEffect(() => {
-    console.log('useEffect get:', getSolution)
-  }, [isOpen])
+  // useEffect(() => {
+  //   console.log('useEffect get:', getSolution)
+  // }, [isOpen])
 
-
   useEffect(() => {
+    console.log('este effect')
 
     const fiveMinutes = localStorage.getItem('fiveMinutes')
 
     if (fiveMinutes) {
+      console.log()
+
       setcountDown(parseInt(fiveMinutes))
     }
-  }, [gameWon])
+  }, [gameWon, gameLost])
 
   return (
     <BaseModal title="Estadísticas" isOpen={isOpen} closeModal={closeModal}>
@@ -69,9 +75,14 @@ export const ModalStatistics = ({ closeModal, isOpen, statistics, gameWon, gameL
         </div>
         {/* todo: condition to show the next word if game won or lost */}
         <div className="flex flex-col flex-wrap justify-center pt-8 items-center">
-
-          {gameLost || gameWon && (
+          {(gameLost || gameWon) && (
             <>
+              {gameLost && (
+                <p className="mb-4">
+                  La palabra era:{' '}
+                  <strong className="uppercase">{getSolution}</strong>{' '}
+                </p>
+              )}
               <p className="uppercase mb-2">Siguiente palabra</p>
               <Countdown date={countDown} renderer={renderTime} />
             </>

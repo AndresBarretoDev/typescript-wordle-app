@@ -4,10 +4,19 @@
     &.absent {
       @extend .absent;
     }
+    &.present {
+      @extend .present;
+    }
+    &.correct {
+      @extend .correct;
+    }
   }
 }
 .cell {
-  @apply w-11 h-11 xl:w-16  xl:h-16 flex items-center justify-center m-1 text-4xl font-bold rounded text-gray-darker bg-gray-04 dark:bg-gray-dark uppercase;
+  @apply w-12 h-12 xl:w-16  xl:h-16 flex items-center justify-center m-1 text-2xl font-bold rounded text-gray-darker bg-gray-04 dark:bg-gray-dark uppercase;
+}
+.keypad {
+  @apply flex items-center justify-center rounded text-xs font-bold cursor-pointer select-none dark:text-white bg-gray-light-d dark:bg-gray-darker-01 hover:bg-slate-300 active:bg-gray-04;
 }
 
 .absent {

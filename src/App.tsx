@@ -21,13 +21,13 @@ import {
 // const solution = 'jugar'
 
 function App() {
-
   const [gameWon, setGameWon] = useState(false)
   const [gameLost, setGameLost] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)')
     .matches
   const getDataFromStorage = () => {
-
     const response = getGameStatusFromLocalStorage()
     if (response?.solution !== solution) return []
     const gameWinner = response.guesses.includes(solution)
@@ -50,8 +50,8 @@ function App() {
     localStorage.getItem('theme')
       ? localStorage.getItem('theme') === 'dark'
       : prefersDarkMode
-        ? true
-        : false,
+      ? true
+      : false,
   )
   const handleDarkMode = (isDark: boolean) => {
     setIsDarkMode(isDark)
@@ -65,6 +65,17 @@ function App() {
       setStatisticsModalOpen(true)
     }, 350 * solution.length + 1)
   }
+  const setCountdownInStorage = () => {
+    const fiveMinutes: Date = currentDatePlusFiveMinutes()
+    localStorage.setItem('fiveMinutes', JSON.stringify(+fiveMinutes))
+  }
+  const handleErrorMessage = (message: string) => {
+    setErrorMessage(message)
+    setShowErrorMessage(true)
+    setTimeout(() => {
+      setShowErrorMessage(false)
+    }, 2000)
+  }
 
   useEffect(() => {
     // show instructions modal only when the user has not seen it before
@@ -77,7 +88,6 @@ function App() {
 
   useEffect(() => {
     saveGameInLocalstorage({ guesses, solution })
-
   }, [guesses])
 
   const clearCurrentRowClass = () => {
@@ -117,11 +127,11 @@ function App() {
     setCurrentGuess(currentGuess.slice(0, -1))
   }
   const onEnter = () => {
-
     if (gameWon || gameLost) return
 
     if (splitWordsLength(currentGuess) < solution.length) {
       setCurrentClass('shake-horizontal')
+      handleErrorMessage('La palabra debe tener 5 letras')
       setTimeout(() => {
         clearCurrentRowClass()
       }, 1000)
@@ -130,6 +140,7 @@ function App() {
 
     if (!isExistingWord(currentGuess)) {
       setCurrentClass('shake-horizontal')
+      handleErrorMessage('La palabra no existe')
       setTimeout(() => {
         clearCurrentRowClass()
       }, 1000)
@@ -152,10 +163,8 @@ function App() {
       setCurrentGuess('')
       if (winningWord) {
         setStatistics(addStatisticsInCompletedGame(statistics, guesses.length))
-
+        setCountdownInStorage()
         setGameWon(true)
-        const fiveMinutes: Date = currentDatePlusFiveMinutes()
-        localStorage.setItem('fiveMinutes', JSON.stringify(+fiveMinutes))
 
         handleStatisticsModal()
       }
@@ -165,6 +174,8 @@ function App() {
           addStatisticsInCompletedGame(statistics, guesses.length + 1),
         )
         setGameLost(true)
+        setCountdownInStorage()
+
         handleStatisticsModal()
       }
     }
@@ -172,6 +183,16 @@ function App() {
 
   return (
     <div className="app">
+      <div className=" absolute top-20 left-0 right-0 mx-auto w-max text-center text-white z-10">
+        <div
+          className={`bg-red-500 py-2 rounded-md ${
+            showErrorMessage ? 'fade-in-top px-3' : ' slide-out-top'
+          }`}
+        >
+          <span className="text-sm font-bold">{errorMessage}</span>
+        </div>
+      </div>
+
       <ModalInstructions
         isOpen={instructionsModalOpen}
         closeModal={() => setInstructionsModalOpen(false)}
